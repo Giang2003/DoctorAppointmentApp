@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "795302901496",
+    "project_id": "bad-app-8e809",
+    "storage_bucket": "bad-app-8e809.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795302901496:android:c22d6a8aaa381d8b49ed0d",
+        "android_client_info": {
+          "package_name": "com.example.badapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDelB2ec8rU-HmnqoJhOQ8lsf4omfJjQHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
