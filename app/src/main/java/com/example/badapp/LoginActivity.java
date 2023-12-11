@@ -28,11 +28,18 @@ public class LoginActivity extends AppCompatActivity {
     TextView registerText;
     FirebaseAuth authProfile;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        //
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        if (authProfile.getCurrentUser()!= null){
+//            Toast.makeText(LoginActivity.this,"Already logged in", Toast.LENGTH_SHORT).show();
+//            startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+//        }
+//        else{
+//            Toast.makeText(LoginActivity.this,"Login opened", Toast.LENGTH_SHORT).show();
+//        }
+//        //
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = editPassword.getText().toString();
 
                 if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-                    editUsername.setError("Email and password required");
+                    usernameLayout.setError("Email and password required");
                     editUsername.requestFocus();
                 }
                 else{
@@ -71,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         registerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, PatientHomeActivity.class));
             }
         });
     }
@@ -83,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     //Check the role of user
                     //if: patient:
-                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                    startActivity(new Intent(LoginActivity.this,PatientHomeActivity.class));
                     //if: doc:
 
                     Toast.makeText(LoginActivity.this, "Login Successful",Toast.LENGTH_SHORT).show();

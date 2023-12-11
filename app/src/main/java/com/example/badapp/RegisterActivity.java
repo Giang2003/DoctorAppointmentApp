@@ -29,9 +29,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Button registerButton;
     private DatePickerDialog picker;
-    private Spinner genderSpinner ;
+    private Spinner genderSpinner , roleSpinner;
             //= findViewById(R.id.genderSpinner);
-    private ArrayAdapter<CharSequence> adapter;
+    private ArrayAdapter<CharSequence> adapter, adapter2;
                     //= ArrayAdapter.createFromResource(this, R.array.genders,android.R.layout.simple_spinner_item);
 
     private ProgressBar progressBar;
@@ -44,6 +44,10 @@ public class RegisterActivity extends AppCompatActivity {
         genderSpinner = findViewById(R.id.genderSpinner);
         adapter = ArrayAdapter.createFromResource(this, R.array.genders,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roleSpinner = findViewById(R.id.roleSpinner);
+        adapter2 = ArrayAdapter.createFromResource(this, R.array.roles, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roleSpinner.setAdapter(adapter2);
         genderSpinner.setAdapter(adapter);
         loginText = findViewById(R.id.loginText);
         editTextFullname = findViewById(R.id.editTextRegisterFullname);
