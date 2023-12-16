@@ -1,6 +1,7 @@
 package com.example.badapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +20,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class LoginActivity extends AppCompatActivity {
     ProgressBar progressBar;
@@ -27,7 +34,9 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     TextView registerText;
     FirebaseAuth authProfile;
-
+    FirebaseFirestore fStore;
+    String userID;
+    String TAG = "LoginActivity";
 //    @Override
 //    public void onStart() {
 //        super.onStart();
@@ -68,8 +77,6 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     progressBar.setVisibility(View.VISIBLE);
                     loginUser(email,password);
-//                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-//                    Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -78,22 +85,52 @@ public class LoginActivity extends AppCompatActivity {
         registerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, PatientHomeActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
 
     private void loginUser(String email, String password) {
+        authProfile = FirebaseAuth.getInstance();
         authProfile.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this,new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    //Check the role of user
-                    //if: patient:
-                    startActivity(new Intent(LoginActivity.this,PatientHomeActivity.class));
-                    //if: doc:
 
-                    Toast.makeText(LoginActivity.this, "Login Successful",Toast.LENGTH_SHORT).show();
+                    //Check the role of user
+                    FirebaseUser user = authProfile.getCurrentUser();
+                    //if: patient:
+                    fStore = FirebaseFirestore.getInstance();
+
+                    userID = authProfile.getCurrentUser().getUid();
+                    DocumentReference userReference = fStore.collection("users").document(authProfile.getCurrentUser().getEmail());
+                    //DocumentReference userReference = fStore.collection("users").document(userID);
+                    userReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    if (document.getString("Role").equals("Doctor") || document.getString("Role").equals("Nurse")){
+                                        startActivity(new Intent(LoginActivity.this,DoctorHomeActivity.class));
+                                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else if (document.getString("Role").equals("Patient")){
+                                        startActivity(new Intent(LoginActivity.this,PatientHomeActivity.class));
+                                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        Toast.makeText(LoginActivity.this, "Something went wrong! ", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            } else {
+                                Log.d(TAG, "get failed with ", task.getException());
+                            }
+                        }
+                    });
+
                 }
                 else{
                     try{
@@ -101,10 +138,18 @@ public class LoginActivity extends AppCompatActivity {
                     } catch (FirebaseAuthInvalidCredentialsException e){
                         usernameLayout.setError("Wrong username or password. Please try again");
                         passwordLayout.requestFocus();
-                    } catch (Exception e){
+
+                    }
+                    catch (FirebaseAuthInvalidUserException e){
+                        usernameLayout.setError("Username not found or disabled");
+                        passwordLayout.requestFocus();
+                    }
+
+                    catch (Exception e){
                         Log.e("Login Acitivity",e.getMessage());
 
                     }
+
                     //Toast.makeText(LoginActivity.this, "Something went wrong",Toast.LENGTH_SHORT).show();
                 }
                 progressBar.setVisibility(View.GONE);

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF"
+    android:gravity="center_horizontal"
+    >
+
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/montserrat"
+    android:text="APPOINTMENT"
+    android:textAlignment="center"
+    android:textColor="#2C87FF"
+    android:textSize="30sp"
+    android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="Appointment request submitted!" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/card_border"
+        >
+
+        <TextView
+            android:id="@+id/tvAppointmentInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/rounded_button"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:padding="8dp"
+            android:text="Appointment\n15 Jan 2023, 09:00am - 12:00am" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="Please wait for doctor's confirmation to set up the appointment!" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="24dp">
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#2C87FF"
+            android:fontFamily="@font/montserrat"
+            android:text="Home" />
+
+        <Button
+            android:id="@+id/btnSetNewAppointment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#2C87FF"
+            android:fontFamily="@font/montserrat"
+            android:text="Set new appointment" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="197dp"
+        android:layout_height="181dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/image_18__1_" />
+
+</LinearLayout>

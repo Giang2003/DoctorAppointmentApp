@@ -14,16 +14,23 @@ import android.view.View;
 import android.widget.*;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
+    private TextInputLayout editPasswordLayout;
     private EditText editTextFullname, editTextBirthDate, editTextPhone, editTextPassword, editTextEmail;
     private TextView loginText;
 
@@ -35,12 +42,17 @@ public class RegisterActivity extends AppCompatActivity {
                     //= ArrayAdapter.createFromResource(this, R.array.genders,android.R.layout.simple_spinner_item);
 
     private ProgressBar progressBar;
-
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        fAuth = FirebaseAuth.getInstance();
+        editPasswordLayout = findViewById(R.id.passwordInputLayout);
+        fStore = FirebaseFirestore.getInstance();
         genderSpinner = findViewById(R.id.genderSpinner);
         adapter = ArrayAdapter.createFromResource(this, R.array.genders,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -86,6 +98,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String birthdate = editTextBirthDate.getText().toString();
                 String phone = editTextPhone.getText().toString();
                 String password = editTextPassword.getText().toString();
+                String gender = genderSpinner.getSelectedItem().toString();
+                String role = roleSpinner.getSelectedItem().toString();
 
                 if (TextUtils.isEmpty(fullName)){
                     editTextFullname.setError("Fullname is required");
@@ -112,18 +126,18 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 else if(TextUtils.isEmpty(password)){
-                    editTextPassword.setError("Passwords cannot be empty");
-                    editTextPassword.requestFocus();
+                    editPasswordLayout.setError("Passwords cannot be empty");
+                    editPasswordLayout.requestFocus();
                 }
 
                 else if(password.length() < 8){
-                    editTextPassword.setError("Passwords must be longer than 8 characters");
-                    editTextPassword.requestFocus();
+                    editPasswordLayout.setError("Passwords must be longer than 8 characters");
+                    //editTextPassword.requestFocus();
                 }
                 else{
                     progressBar.setVisibility(View.VISIBLE);
                     //Toast.makeText(getApplicationContext(),"Register success",Toast.LENGTH_SHORT).show();
-                    registerUser(fullName,email,birthdate,phone,password);
+                    registerUser(fullName,email,birthdate,phone,password,gender,role);
                 }
             }
         });
@@ -137,17 +151,36 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String fullName, String email, String birthdate, String phone, String password) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+    private void registerUser(String fullName, String email, String birthdate, String phone, String password,String gender, String role) {
 
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this,
+
+        fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this,
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this,"User registered successfully", Toast.LENGTH_SHORT).show();
-                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            FirebaseUser firebaseUser = fAuth.getCurrentUser();
                             firebaseUser.sendEmailVerification();
+                            userID = fAuth.getCurrentUser().getUid();
+                            //DocumentReference userReference = fStore.collection("users").document(userID);
+                            DocumentReference userReference = fStore.collection("users").document(fAuth.getCurrentUser().getEmail());
+                            Map<String,Object> user = new HashMap<>();
+                            user.put("FullName", fullName);
+                            user.put("Email", email);
+                            user.put("Birthdate",birthdate);
+                            user.put("Phone",phone);
+                            user.put("Password",password);
+                            user.put("Gender",gender);
+                            user.put("Role",role);
+
+                            userReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Log.d("REGISTER", "Success: A new account is created for ID " + userID);
+                                }
+                            });
+
 
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

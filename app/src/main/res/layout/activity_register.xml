@@ -181,33 +181,55 @@
             android:textStyle="bold" />
 
 
+        <com.google.android.material.textfield.TextInputLayout
 
-        <EditText
-            android:id="@+id/editTextPassword"
-            app:endIconMode = "password_toggle"
+            android:id="@+id/passwordInputLayout"
+            android:layout_below="@+id/passwordTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16sp"
-            android:hint="At least 8 characters"
-            android:layout_below="@+id/passwordTextView"
+
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
 
 
-            android:background="@drawable/border"
-            android:inputType="textPassword"
-            android:padding="8sp"   
-            android:textSize="16sp" />
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/border"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+<!--        <EditText-->
+<!--            android:id="@+id/editTextPassword"-->
+<!--            app:endIconMode = "password_toggle"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16sp"-->
+<!--            android:hint="At least 8 characters"-->
+<!--            android:layout_below="@+id/passwordTextView"-->
+
+
+<!--            android:background="@drawable/border"-->
+<!--            android:inputType="textPassword"-->
+<!--            android:padding="8sp"   -->
+<!--            android:textSize="16sp" />-->
 
         <Button
             android:id="@+id/registerButton"
             android:layout_width="277dp"
             android:layout_height="46dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:backgroundTint="#2C87FF"
             android:text="Register Account"
             android:textSize="16sp"
             android:textColorHighlight="#2C87FF"
             android:textColorLink="#2C87FF"
-            android:layout_below="@id/editTextPassword"
+            android:layout_below="@id/passwordInputLayout"
             android:layout_centerHorizontal="true"
             style="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"
              ></Button>
@@ -227,7 +249,7 @@
             android:layout_below="@id/registerButton"
             android:layout_marginTop="16sp"
             android:text="Already have an account?"
-            android:layout_marginLeft="24sp"
+            android:layout_marginLeft="30sp"
             android:textSize="15sp"
              />
 
@@ -237,7 +259,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/registerButton"
             android:layout_alignLeft="@id/dontHaveText"
-            android:layout_marginLeft="172sp"
+            android:layout_marginLeft="180sp"
             android:layout_marginTop="16sp"
             android:text="Click here to log in"
             android:textSize="15sp"

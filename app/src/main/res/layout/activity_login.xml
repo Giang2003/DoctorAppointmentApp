@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loginbackground"
     tools:context=".LoginActivity">
 
     <TextView
@@ -23,14 +24,15 @@
         android:id="@+id/loginText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat"
-        android:text="LOG IN"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#2C87FF"
-        android:textSize="34sp"
+        android:lineSpacingExtra="8sp"
+        android:text="LOGIN"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="@color/white"
+        android:textSize="48sp"
         android:textStyle="bold"
-        android:typeface="normal"
+        android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,12 +42,12 @@
         android:id="@+id/userPhoneText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="172dp"
         android:fontFamily="@font/montserrat"
-        android:layout_marginTop="40dp"
         android:text="Email"
-        android:textStyle="bold"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginText" />
 
@@ -150,5 +152,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

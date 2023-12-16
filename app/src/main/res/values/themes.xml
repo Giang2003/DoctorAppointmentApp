@@ -3,7 +3,8 @@
 
     <style name="Base.Theme.BadApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-
+        <item name="android:statusBarColor" tools:targetApi="1">@color/appTheme
+        </item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
