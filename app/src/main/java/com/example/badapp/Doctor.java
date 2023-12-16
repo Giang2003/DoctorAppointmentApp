@@ -3,86 +3,85 @@ package com.example.badapp;
 public class Doctor {
 
     public int resourceID;
-    private String name;
-    private String specialty;
-    private int patientCount;
-    private int experienceYears;
-    private String phoneNumber;
-    private String email;
-    private String location;
+    private String FullName;
+    private String Specialty;
+    private int PatientCount;
+    private int Experienceyears;
+    private String Phone;
+    private String Email;
+    private String Location;
 
     // Constructor to initialize the member variables
-    public Doctor(String name, String specialty, int patientCount, int experienceYears, String phoneNumber, String email, String location) {
-        this.name = name;
-        this.specialty = specialty;
-        this.patientCount = patientCount;
-        this.experienceYears = experienceYears;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.location = location;
+    public Doctor(String FullName, String Specialty, int PatientCount, int Experienceyears, String Phone, String Email, String Location) {
+        this.FullName = FullName;
+        this.Specialty = Specialty;
+        this.PatientCount = PatientCount;
+        this.Experienceyears = Experienceyears;
+        this.Phone = Phone;
+        this.Email = Email;
+        this.Location = Location;
     }
-
-    public Doctor(int resourceID, String name, String specialty, int patientCount, int experienceYears, String phoneNumber, String email, String location) {
+    public Doctor(int resourceID,String FullName, String Specialty, int PatientCount, int Experienceyears, String Phone, String Email, String Location) {
         this.resourceID = resourceID;
-        this.name = name;
-        this.specialty = specialty;
-        this.patientCount = patientCount;
-        this.experienceYears = experienceYears;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.location = location;
+        this.FullName = FullName;
+        this.Specialty = Specialty;
+        this.PatientCount = PatientCount;
+        this.Experienceyears = Experienceyears;
+        this.Phone = Phone;
+        this.Email = Email;
+        this.Location = Location;
     }
 
     // Getter methods to access the information
     public String getName() {
-        return name;
+        return FullName;
     }
 
     public String getSpecialty() {
-        return specialty;
+        return Specialty;
     }
 
     public int getPatientCount() {
-        return patientCount;
+        return PatientCount;
     }
 
     public int getExperienceYears() {
-        return experienceYears;
+        return Experienceyears;
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return Phone;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     public String getLocation() {
-        return location;
+        return Location;
     }
 
     // Setter methods (optional, if you need to modify the data later)
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String FullName) {
+        this.FullName = FullName;
     }
-    public void setSpecialty(String specialty){
-        this.specialty = specialty;
+    public void setSpecialty(String Specialty){
+        this.Specialty = Specialty;
     }
-    public void setPatientCount(int patientCount){
-        this.patientCount = patientCount;
+    public void setPatientCount(int PatientCount){
+        this.PatientCount = PatientCount;
     }
-    public void setExperienceYears(int experienceYears){
-        this.experienceYears = experienceYears;
+    public void setExperienceYears(int Experienceyears){
+        this.Experienceyears = Experienceyears;
     }
-    public void setPhoneNumber(String phoneNumber){
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String Phone){
+        this.Phone = Phone;
     }
-    public void setEmail(String email){
-        this.email = email;
+    public void setEmail(String Email){
+        this.Email = Email;
     }
-    public void setLocation(String location){
-        this.location = location;
+    public void setLocation(String Location){
+        this.Location = Location;
     }
     private boolean isSelected;
 

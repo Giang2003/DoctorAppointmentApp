@@ -96,8 +96,8 @@ public class MakingAppointment1 extends Fragment {
         button.setOnClickListener(new View.OnClickListener(){
                                       @Override
                                       public void onClick(View view){
-                                          DocumentReference appointmentReference = fStore.collection("appointments").document();
 
+                                          DocumentReference appointmentReference = fStore.collection("appointments").document();
 
 
                                           MakingAppointment2 makeAppointment2 = new MakingAppointment2();

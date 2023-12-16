@@ -89,7 +89,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.DoctorVi
             phoneNumber.setText(doctor.getPhoneNumber());
             email.setText(doctor.getEmail());
             // Set the background color based on the selected state
-            itemView.setBackgroundResource(doctor.isSelected() ? R.drawable.selected_background : R.drawable.card_border);
+            itemView.setBackgroundResource(doctor.isSelected() ? R.drawable.selected_backgr : R.drawable.card_border);
 
             // Set the click listener for the entire item view
             itemView.setOnClickListener(new View.OnClickListener() {
